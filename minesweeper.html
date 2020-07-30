@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>MinesweeperJS</title>
+
+    <link rel="stylesheet" type="text/css" href="minesweeper.css" />
+    <script src="minesweeper.js"></script>
+</head>
+<body>
+    <div class="minesweeper">
+        <h1>MinesweeperJS</h1>
+        <div id="top-bar">
+            <button type="button" id="js-reset" class="js-reset">
+                Reset
+            </button>
+            <input type="text" id="size">
+            <input type="text" id="mines">
+            <div class="stats">
+                <div>
+                    <label>Flags:</label>
+                    <span id="flaggedCount"></span>
+                </div>
+                <div>
+                    <label>Mines left:</label>
+                    <span id="mineCount"></span>
+                </div>
+            </div>
+        </div>
+        <div id="grid"></div>
+        <div id="bottom-bar">
+            <div id="status"></div>
+        </div>
+    </div>
+</body>
+</html>
