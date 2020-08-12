@@ -13,12 +13,21 @@ html {
     width: calc(var(--columns) * var(--size));
 }
 
-#top-bar input {
-    width: 60px;
+#top-bar .config {
+    display: flex;
+}
+
+#top-bar .config > * {
+    margin-right: 0.5rem;
+}
+
+#top-bar .config input {
+    width: 30px;
 }
 
 #top-bar .stats {
     display: flex;
+    margin-left: auto;
 }
 
 #top-bar .stats div {
@@ -64,7 +73,6 @@ html {
 .cell:focus,
 .cell:hover {
     background-color: #333;
-    color: white;
 }
 
 .cell.revealed {
@@ -73,13 +81,22 @@ html {
 }
 
 .cell.mine.revealed {
-    background-color: red;;
-    background: radial-gradient(red, lightyellow 70%);
+    background-color: red;
+}
+.cell.mine.revealed:before {
+    color: white;
+    content: "\f1e2";
+    font-family: "Font Awesome 5 Pro";
+    font-weight: 900;
 }
 
 .cell.flag {
-    background-color: palegreen;
-    background: linear-gradient(to top right, #fff 0%, #fff 50%, blue 50%, blue 100%);
+    background-color: lightblue;
+}
+.cell.flag:before {
+    content: "\f024";
+    font-family: "Font Awesome 5 Pro";
+    font-weight: 900;
 }
 
 .cell.adjacent {
@@ -105,4 +122,3 @@ html {
 .cell.adjacent-8 {
     color: red;
 }
-

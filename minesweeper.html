@@ -5,17 +5,27 @@
     <title>MinesweeperJS</title>
 
     <link rel="stylesheet" type="text/css" href="minesweeper.css" />
+
+    <script src="https://kit.fontawesome.com/8aebefa6ec.js" crossorigin="anonymous"></script>
     <script src="minesweeper.js"></script>
 </head>
 <body>
     <div class="minesweeper">
         <h1>MinesweeperJS</h1>
         <div id="top-bar">
-            <button type="button" id="js-reset" class="js-reset">
-                Reset
-            </button>
-            <input type="text" id="size">
-            <input type="text" id="mines">
+            <div class="config">
+                <div>
+                    <label for="input-size">Size:</label>
+                    <input type="text" id="input-size">
+                </div>
+                <div>
+                    <label for="input-mines">Mines:</label>
+                    <input type="text" id="input-mines">
+                </div>
+                <button type="button" id="js-reset" class="js-reset">
+                    Reset
+                </button>
+            </div>
             <div class="stats">
                 <div>
                     <label>Flags:</label>

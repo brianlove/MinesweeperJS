@@ -1,7 +1,9 @@
 
-const mines = 12;
-const size = 10;
-var grid;
+let size;
+let mines;
+let grid;
+
+const SHOW_MINE_CLASSES = false;
 
 
 function getProperty(prop) {
@@ -29,12 +31,9 @@ function setProperty(prop, val) {
 //     numAdjacent (number)
 // }
 
-function initializeGrid(size) {
+function initializeGrid(size, mines) {
     grid = Array(size);
     let row, col;
-
-    let sizeFieldDiv = document.getElementById("size");
-    sizeFieldDiv.value = size;
 
     // Create the grid's structure
     for ( row = 0; row < size; row++ ) {
@@ -79,14 +78,14 @@ function countAdjacentMines(row, col, debug) {
             // Don't check the current cell
             if ( rowTemp == row && colTemp == col ) {
                 if ( debug ) {
-                    console.info("checking", rowTemp, colTemp, "CURRENT"); // DEBUG
+                    console.debug("checking", rowTemp, colTemp, "CURRENT");
                 }
                 continue;
             }
 
             if ( rowTemp >= 0 && rowTemp < size && colTemp >= 0 && colTemp < size ) {
                 if ( debug ) {
-                    console.info("checking", rowTemp, colTemp, grid[rowTemp][colTemp].hasMine); // DEBUG
+                    console.debug("checking", rowTemp, colTemp, grid[rowTemp][colTemp].hasMine);
                 }
                 if ( grid[rowTemp][colTemp].hasMine ) {
                     adjacent++;
@@ -150,16 +149,19 @@ function drawGrid() {
                 cell.className += " adjacent-" + grid[row][col].numAdjacent;
             }
 
-            // TEMPORARY!!
             if ( grid[row][col].hasMine ) {
-                cell.className += " mine";
+                if ( SHOW_MINE_CLASSES || grid[row][col].isRevealed ) {
+                    cell.className += " mine";
+                }
             }
 
             if ( grid[row][col].hasFlag ) {
                 cell.className += " flag";
             }
 
-            if ( grid[row][col].isRevealed && grid[row][col].numAdjacent != 0 ) {
+            // Don't show the adjacency count for revealed mines, since the
+            // player has lost and we should show a bomb icon instead.
+            if ( grid[row][col].isRevealed && !grid[row][col].hasMine && grid[row][col].numAdjacent != 0 ) {
                 cell.innerHTML = grid[row][col].numAdjacent;
             }
 
@@ -184,15 +186,12 @@ function drawGrid() {
     let minesLeftDiv = document.getElementById("mineCount");
     minesLeftDiv.innerHTML = mines - numFlagged;
 
-    // let topBarDiv = document.getElementById("top-bar");
     setProperty("--columns", size);
     setProperty("--rows", size);
 }
 
 
 function revealCells(row, col) {
-    console.info("revealCells()", row, col, grid[row][col]); // DEBUG
-
     // It should never come to this, but just in case.
     if ( grid[row][col].hasMine ) {
         return;
@@ -257,8 +256,6 @@ function flagCell(row, col) {
         return;
     }
 
-    console.info("Flag cell!", row, col); // DEBUG
-
     if ( grid[row][col].isRevealed ) {
         return;
     }
@@ -304,7 +301,21 @@ function setStatus(message, style) {
 
 function initialize() {
     gameActive = true;
-    initializeGrid(size);
+
+    const sizeFieldDiv = document.getElementById("input-size");
+    size = parseInt(sizeFieldDiv.value);
+    console.info(size, typeof size);
+    if ( !Number.isInteger(size) ) {
+        size = sizeFieldDiv.value = 10;
+    }
+
+    const mineCountDiv = document.getElementById("input-mines");
+    mines = parseInt(mineCountDiv.value);
+    if ( !Number.isInteger(mines) ) {
+        mines = mineCountDiv.value = 10;
+    }
+
+    initializeGrid(size, mines);
     drawGrid();
     setStatus();
 }
