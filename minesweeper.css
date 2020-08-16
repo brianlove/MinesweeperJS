@@ -90,6 +90,13 @@ html {
     font-weight: 900;
 }
 
+.cell.unrevealed-mine:before {
+    color: white;
+    content: "\f1e2";
+    font-family: "Font Awesome 5 Pro";
+    font-weight: 900;
+}
+
 .cell.flag {
     background-color: lightblue;
 }
