@@ -152,6 +152,8 @@ function drawGrid() {
             if ( grid[row][col].hasMine ) {
                 if ( SHOW_MINE_CLASSES || grid[row][col].isRevealed ) {
                     cell.className += " mine";
+                } else if ( !grid[row][col].hasFlag && !gameActive && !playerVictory ) {
+                    cell.className += " unrevealed-mine";
                 }
             }
 
@@ -238,6 +240,7 @@ function clickCell(row, col) {
         grid[row][col].isRevealed = true;
         setStatus("You lose!", "red");
         gameActive = false;
+        playerVictory = false;
     }
 
     revealCells(row, col);
@@ -245,6 +248,7 @@ function clickCell(row, col) {
     if ( checkSolution() ) {
         setStatus("Victory!", "green");
         gameActive = false;
+        playerVictory = true;
     }
 
     drawGrid();
@@ -265,6 +269,7 @@ function flagCell(row, col) {
     if ( checkSolution() ) {
         setStatus("Victory!", "green");
         gameActive = false;
+        playerVictory = true;
     }
 
     drawGrid();
@@ -301,6 +306,7 @@ function setStatus(message, style) {
 
 function initialize() {
     gameActive = true;
+    playerVictory = true;
 
     const sizeFieldDiv = document.getElementById("input-size");
     size = parseInt(sizeFieldDiv.value);
