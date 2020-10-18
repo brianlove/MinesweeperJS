@@ -1,8 +1,17 @@
 
 html {
     --size: 40px;
+    --font-size: 1.4rem;
     --columns: 10;
     --rows: 10;
+}
+
+body {
+    display: flex;
+}
+
+.minesweeper {
+    margin: 0 auto;
 }
 
 #top-bar,
@@ -63,7 +72,7 @@ html {
     background-color: #666;
     outline: 1px solid black;
     display: table-cell;
-    font-size: 1.6rem;
+    font-size:var(--font-size);
     height: var(--size);
     text-align: center;
     vertical-align: middle;
