@@ -1,6 +1,7 @@
 
 html {
     --size: 40px;
+    --font-size: 1.4rem;
     --columns: 10;
     --rows: 10;
 }
